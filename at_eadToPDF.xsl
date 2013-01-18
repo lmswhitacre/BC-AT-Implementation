@@ -34,13 +34,25 @@
         *                   a new page, and reducing the size of each     *
         *                   container element (primarily by cutting down  *
         *                   on whitespace and removing redundant info.    *
-        *  UPDATED          October 2, 2012                            *
+        *  UPDATED          October 2, 2012                               *
         *                   Changes made by Betsy McKelvey                *
-        *                   mckelvee@bc.edu     
-        *
-        *                   clevel template completely overhauled         *
-                            re-ordering of TOC and Body sections
+        *                   mckelvee@bc.edu                               *
         *                                                                 *
+        *                   clevel template completely overhauled         *
+        *                   re-ordering of TOC and Body sections          *  
+        *                                                                 *  
+        *  UPDATED          January 18, 2013                              *  
+        *                   Changes made by Betsy McKelvey                *
+        *                   mckelvee@bc.edu                               * 
+        *                                                                 *      
+        *                   Updated template named component-did-core     *  
+        *                   to address the following: when a series or    *
+        *                   subseries is dated but the individual         * 
+        *                   folders within it aren't, the folder          *
+        *                   titles still have a comma at the end, like    *  
+        *                   they are waiting for that date that will      *  
+        *                   never come. If we can find a way to remove    *  
+        *                   that, that would be swell.                    *  
         *******************************************************************
     -->
 
@@ -2625,8 +2637,10 @@
             <xsl:otherwise>
                 <xsl:apply-templates select="ead:unittitle"/>
                 <xsl:if test="ead:unittitle/text() or ead:unittitle/ead:title/text()">
-                    <xsl:text>, </xsl:text>
-                    <!--RP changed this from &#160; to a comma with a space to separate unit title from unit date a little more -->
+                   <xsl:if test="ead:unitdate">
+                       <xsl:text>, </xsl:text>
+                       <!--RP changed this from &#160; to a comma with a space to separate unit title from unit date a little more -->
+                   </xsl:if>    
                 </xsl:if>
                 <!--RP changed this from &#160; to a comma with a space to separate unit title from unit date a little more -->
                 <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
