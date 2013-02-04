@@ -52,7 +52,14 @@
         *                   titles still have a comma at the end, like    *  
         *                   they are waiting for that date that will      *  
         *                   never come. If we can find a way to remove    *  
-        *                   that, that would be swell.                    *  
+        *                   that, that would be swell.                    * 
+        *                                                                 *
+        *  UPDATED          February  4, 2013                             *  
+        *                   Changes made by Betsy McKelvey                *
+        *                   mckelvee@bc.edu                               * 
+        *                                                                 *         
+        *                   Allowed the length of the variable $pageHeader*  
+        *                   to be 125 instead of 100                      *   
         *******************************************************************
     -->
 
@@ -131,8 +138,8 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="pageHeader">
-            <xsl:value-of select="substring($headerString,1,100)"/>
-            <xsl:if test="string-length(normalize-space($headerString)) &gt; 100">...</xsl:if>
+            <xsl:value-of select="substring($headerString,1,125)"/>
+            <xsl:if test="string-length(normalize-space($headerString)) &gt; 125">...</xsl:if>
         </xsl:variable>
         <!--fo:root establishes the page types and layouts contained in the PDF, the finding aid consists of 4 distinct 
             page types, the cover page, the table of contents, contents and the container list. To alter basic page apperence 
