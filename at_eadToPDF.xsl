@@ -59,7 +59,14 @@
         *                   mckelvee@bc.edu                               * 
         *                                                                 *         
         *                   Allowed the length of the variable $pageHeader*  
-        *                   to be 125 instead of 100                      *   
+        *                   to be 125 instead of 100                      *
+        *                                                                 *
+        *  UPDATED          February  5, 2013                             *  
+        *                   Changes made by Betsy McKelvey                *
+        *                   mckelvee@bc.edu                               * 
+        *                                                                 *         
+        *                   Disallowed page break within preferred cite.  *  
+        *                                                                 *   
         *******************************************************************
     -->
 
@@ -1141,7 +1148,8 @@
 
     <!-- Formats prefered citiation -->
     <xsl:template match="ead:prefercite">
-        <fo:block border="1pt solid gray" padding="16pt">
+        
+            <fo:block page-break-inside="avoid" border="1pt solid gray" padding="16pt">
             <xsl:choose>
                 <xsl:when test="ead:head">
                     <xsl:apply-templates/>
