@@ -53,6 +53,14 @@
         *                   they are waiting for that date that will      *  
         *                   never come. If we can find a way to remove    *  
         *                   that, that would be swell.                    *  
+        *                                                                 *  
+        *  UPDATED          August 8, 2013                                *  
+        *                   Changes made by Brian Meuse                   *
+        *                   meuseb@bc.edu                                 * 
+        *                                                                 *
+        *                   Updated <p> template to process included URLs *
+        *                   with the same styling as other external       *
+        *                   links.                                        *
         *******************************************************************
     -->
 
@@ -87,7 +95,7 @@
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <xsl:strip-space elements="*"/>
     <!--<xsl:include href="lookupListsPDF.xsl"/>-->
-    <xsl:include href="reports/Resources/eadToPdf/lookupListsPDF.xsl"/>
+    <xsl:include href="lookupListsPDF.xsl"/>
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
@@ -1769,10 +1777,24 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="ead:p">
+    <!-- Check for embedded link and process -->
+    <xsl:template match="ead:p">   
         <fo:block margin-bottom="8pt">
-            <xsl:apply-templates/>
-        </fo:block>
+            <xsl:choose>
+                <xsl:when test="ead:extref">
+                    <!-- URL might be embedded in string, so use href attribute to parse text -->                    
+                    <xsl:variable name="varHref"><xsl:value-of select="ead:extref[@ns2:href]"/></xsl:variable>
+                    <xsl:value-of select="substring-before(.,$varHref)"/>                                       
+                    <fo:basic-link external-destination="url('{ead:extref[@ns2:href]}')" color="blue" text-decoration="underline">
+                        <xsl:value-of select="ead:extref[@ns2:href]"/>
+                    </fo:basic-link>
+                    <xsl:value-of select="substring-after(.,$varHref)"/>
+                </xsl:when>
+                <xsl:otherwise>                  
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>  
+        </fo:block>            
     </xsl:template>
 
     <!--Formats a simple table. The width of each column is defined by the colwidth attribute in a colspec element.-->
