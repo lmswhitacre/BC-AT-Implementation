@@ -61,6 +61,13 @@
         *                   Updated <p> template to process included URLs *
         *                   with the same styling as other external       *
         *                   links.                                        *
+        *                                                                 *
+        *  UPDATED          September 3, 2013                             *
+        *                   Changes made by Brian Meuse                   *
+        *                   meuseb@bc.edu                                 * 
+        *                                                                 *
+        *                   Commented on Lookup paths to reflect          *
+        *                   environments.                                 *
         *******************************************************************
     -->
 
@@ -94,8 +101,10 @@
 
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <xsl:strip-space elements="*"/>
+    <!-- Path for lookup if transforming outside AT -->
     <!--<xsl:include href="lookupListsPDF.xsl"/>-->
-    <xsl:include href="lookupListsPDF.xsl"/>
+    <!-- Path for lookup is transforming inside AT -->
+    <xsl:include href="reports/Resources/eadToPdf/lookupListsPDF.xsl"/>
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
